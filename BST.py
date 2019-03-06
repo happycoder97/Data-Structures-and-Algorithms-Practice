@@ -32,7 +32,7 @@ class BST:
             else:
                 par.left = Node(x, par)
 
-    def change_parent_linkage(self, node, new_node):
+    def _change_parent_linkage(self, node, new_node):
         if node is self.root:
             self.root = new_node
             new_node.parent = None
@@ -43,22 +43,22 @@ class BST:
                 node.parent.right = new_node
 
     def delete(self, x):
-        elem = self.find(x)
+        elem = self._find(x)
         if elem is None:
             return
 
         if elem.left is None:
-            self.change_parent_linkage(elem, elem.right)
+            self._change_parent_linkage(elem, elem.right)
         elif elem.right is None:
-            self.change_parent_linkage(elem, elem.left)
+            self._change_parent_linkage(elem, elem.left)
         else:
-            successor = self.subtree_min(elem.right)
-            self.change_parent_linkage(successor, successor.right)
-            self.change_parent_linkage(elem, successor)
+            successor = self._subtree_min(elem.right)
+            self._change_parent_linkage(successor, successor.right)
+            self._change_parent_linkage(elem, successor)
             successor.left = elem.left
             successor.right = elem.right
 
-    def find(self, x):
+    def _find(self, x):
         cur = self.root
 
         # Invariant: cur is None or cur is a child of root
@@ -76,7 +76,7 @@ class BST:
 
         return cur
 
-    def subtree_min(self, node):
+    def _subtree_min(self, node):
         cur = node
         # Invariant:
         # all nodes in (node, cur] are left child of their parents
@@ -85,7 +85,7 @@ class BST:
 
         return cur
 
-    def subtree_max(self, node):
+    def _subtree_max(self, node):
         cur = node
         # Invariant:
         # all nodes in (node, cur] are right child of their parents
@@ -94,12 +94,12 @@ class BST:
         return cur
 
     def successor(self, x):
-        elem = self.find(x)
+        elem = self._find(x)
         if elem is None:
             return None
 
         if elem.right is not None:
-            return self.subtree_min(elem.right)
+            return self._subtree_min(elem.right)
         else:
             cur = elem
             while cur.parent is not None and cur.parent.right is cur:
@@ -107,12 +107,12 @@ class BST:
             return cur.parent
 
     def predecessor(self, x):
-        elem = self.find(x)
+        elem = self._find(x)
         if elem is None:
             return None
 
         if elem.left is not None:
-            return self.subtree_max(elem.left)
+            return self._subtree_max(elem.left)
         else:
             cur = elem
             while cur.parent is not None and cur.parent.left is cur:
