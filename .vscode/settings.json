@@ -1,0 +1,12 @@
+{
+    "python.linting.pylintEnabled": false,
+    "python.pythonPath": "/bin/python",
+    "python.unitTest.unittestArgs": [
+        "-v",
+        "-p",
+        "*.py"
+    ],
+    "python.unitTest.pyTestEnabled": false,
+    "python.unitTest.nosetestsEnabled": false,
+    "python.unitTest.unittestEnabled": true
+}
